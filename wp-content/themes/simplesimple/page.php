@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-			
 			<!-- main -->
 			<div id="main">
 				<?php 
@@ -8,13 +7,17 @@
 						<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 							
 							<h2><a href="<?php the_permalink(); ?>"><?php echo get_the_title(); ?></a></h2>
-							<p class="post-meta">
-								<span class="post-date"><?php echo get_the_date(); ?></span>
-								<span class="category">Category - <?php the_category(', ') ?></span>
-								<span class="comment-num"><?php comments_popup_link('Comment : 0', 'Comment : 1', 'Comments : %'); ?></span>
-							</p>
 							
-							<?php the_content('続きを読む &raquo;'); ?>
+							<?php the_content(); ?>
+							
+							<?php 
+							$args = array(
+								'before' => '<div class="page-link">',
+								'after' => '</div>',
+								'link_before' => '<span>',
+								'link_after' => '</span>',
+							);
+							wp_link_pages($args); ?>
 							
 						</div>
 					<?php 
@@ -27,21 +30,7 @@
 				<?php
 				endif;
 				?>
-				
-				<!-- pager -->
-				<?php
-				if ( $wp_query -> max_num_pages > 1 ) : ?>
-					<div class="navigation">
-						<div class="alignleft"><?php next_posts_link('&laquo; PREV'); ?></div>
-						<div class="alignright"><?php previous_posts_link('NEXT &raquo;'); ?></div>
-					</div>
-				<?php 
-				endif;
-				?>
-				<!-- /pager	 -->
-				
 			</div>
 			<!-- /main -->
-			
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
